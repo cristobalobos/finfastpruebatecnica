@@ -15,10 +15,17 @@ namespace Personas.Data
         }
         public void DeletePersona(Guid id)
         {
-            throw new NotImplementedException();
+            var persona = PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+            if (persona != null)
+            {
+                PersonaMock.Personas.Remove(persona);
+                Console.WriteLine($"🗑 Persona with ID {id} deleted");
+            }
+            else
+            {
+                Console.WriteLine($"⚠️ Persona with ID {id} not found for deletion");
+            }
         }
-
-
 
         public Persona GetPersonaById(Guid id)
         {

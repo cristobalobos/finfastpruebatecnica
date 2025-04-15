@@ -57,5 +57,23 @@ namespace Personas.Controllers
 
             return Ok("Persona updated successfully.");
         }
+
+        [HttpDelete("DeletePersona/{id}")]
+        public IActionResult DeletePersona(Guid id)
+        {
+            Console.WriteLine($"🗑️ Delete request received for ID: {id}");
+
+            var existing = _service.GetPersonaById(id);
+            if (existing == null)
+            {
+                Console.WriteLine($"⚠️ Persona with ID {id} not found");
+                return NotFound("Persona not found.");
+            }
+
+            _service.DeletePersona(id);
+            Console.WriteLine($"✅ Persona with ID {id} deleted successfully");
+
+            return Ok("Persona deleted successfully.");
+        }
     }
 }
