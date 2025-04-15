@@ -95,8 +95,8 @@ npm start
 ## 📋 Consideraciones de Diseño
 
 - Las entidades mantienen sus nombres en español para coincidir directamente con la estructura de la base de datos SQL entregada.
-- El código fuente está escrito completamente en inglés (excepto las entidades), para mantener buenas prácticas internacionales de desarrollo.
-- La estructura del proyecto se inspiró en un proyecto anterior llamado `Trips`, adaptado a las nuevas necesidades y escalabilidad.
+- Se dejó una carpeta exclusiva llamada `Personas` que agrupa modelos, servicios e interfaces relacionados. Esta estructura facilita la **escalabilidad**, permitiendo que en el futuro se agreguen más entidades (como `Región`, `Sexo`, `Ciudad`, etc.) de forma ordenada y mantenible.
+- El uso de **interfaces** e **inyección de dependencias** en `Startup.cs` permite desacoplar el backend, facilitando el testeo y cambios en la fuente de datos.
 
 ---
 

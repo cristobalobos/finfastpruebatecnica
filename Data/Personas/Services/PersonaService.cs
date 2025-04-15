@@ -7,7 +7,22 @@ namespace Personas.Data
     public class PersonaService : IPersonaService
     {
 
-        public List<Persona> GetAllPersonas() => PersonaMock.Personas.ToList();
+        private readonly PersonasDbContext _context;
+
+        public PersonaService(PersonasDbContext context)
+        {
+            _context = context;
+        }
+
+        public List<Persona> GetAllPersonas()
+        {
+            // ✅ Using Entity Framework (real database)
+            return _context.Persona.ToList();
+
+            // 🧪 Using mock data (for testing purposes)
+            // return PersonaMock.Personas.ToList();
+        }
+
         public void AddPersona(Persona persona)
         {
             persona.Id = Guid.NewGuid(); // Asegura que el ID sea único

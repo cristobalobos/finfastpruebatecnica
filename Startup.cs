@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Personas.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace finfastpruebatecnica
 {
@@ -23,6 +24,9 @@ namespace finfastpruebatecnica
         {
 
             services.AddControllersWithViews();
+
+            services.AddDbContext<PersonasDbContext>(options =>
+      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
