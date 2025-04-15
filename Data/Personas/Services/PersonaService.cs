@@ -22,12 +22,32 @@ namespace Personas.Data
 
         public Persona GetPersonaById(Guid id)
         {
-            throw new NotImplementedException();
+            return PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+
         }
 
-        public void UpdatePersona(Guid id, Persona persona)
+        public void UpdatePersona(Guid id, Persona updatedPersona)
         {
-            throw new NotImplementedException();
+            var existingPersona = PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+
+            if (existingPersona == null)
+                return; // O puedes lanzar una excepción si prefieres validar más estrictamente
+
+            // Actualizamos cada campo manualmente
+            existingPersona.RunCuerpo = updatedPersona.RunCuerpo;
+            existingPersona.RunDigito = updatedPersona.RunDigito;
+            existingPersona.Nombres = updatedPersona.Nombres;
+            existingPersona.ApellidoPaterno = updatedPersona.ApellidoPaterno;
+            existingPersona.ApellidoMaterno = updatedPersona.ApellidoMaterno;
+            existingPersona.Email = updatedPersona.Email;
+            existingPersona.SexoCodigo = updatedPersona.SexoCodigo;
+            existingPersona.FechaNacimiento = updatedPersona.FechaNacimiento;
+            existingPersona.RegionCodigo = updatedPersona.RegionCodigo;
+            existingPersona.CiudadCodigo = updatedPersona.CiudadCodigo;
+            existingPersona.ComunaCodigo = updatedPersona.ComunaCodigo;
+            existingPersona.Direccion = updatedPersona.Direccion;
+            existingPersona.Telefono = updatedPersona.Telefono;
+            existingPersona.Observaciones = updatedPersona.Observaciones;
         }
     }
 }

@@ -33,5 +33,29 @@ namespace Personas.Controllers
             _service.AddPersona(persona);
             return Ok("The person was added successfully.");
         }
+
+        [HttpPut("UpdatePersona/{id}")]
+        public IActionResult UpdatePersona(Guid id, [FromBody] Persona persona)
+        {
+            Console.WriteLine($"📝 Update request received for ID: {id}");
+
+            if (persona == null || id == Guid.Empty)
+            {
+                Console.WriteLine("❌ Invalid request: persona is null or ID is empty");
+                return BadRequest("Invalid persona or ID.");
+            }
+
+            var existing = _service.GetPersonaById(id);
+            if (existing == null)
+            {
+                Console.WriteLine($"⚠️ Persona with ID {id} not found");
+                return NotFound("Persona not found.");
+            }
+
+            _service.UpdatePersona(id, persona);
+            Console.WriteLine($"✅ Persona with ID {id} updated successfully");
+
+            return Ok("Persona updated successfully.");
+        }
     }
 }

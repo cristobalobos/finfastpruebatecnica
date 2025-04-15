@@ -11,7 +11,7 @@ namespace Personas.Data
         {
             new Persona()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("00000000-0000-0000-0000-000000000001"),
                 RunCuerpo = 11111111,
                 RunDigito = '1',
                 Nombres = "Ada",
@@ -29,7 +29,7 @@ namespace Personas.Data
             },
             new Persona()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("00000000-0000-0000-0000-000000000002"),
                 RunCuerpo = 22222222,
                 RunDigito = '2',
                 Nombres = "Grace",
@@ -47,7 +47,7 @@ namespace Personas.Data
             },
             new Persona()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("00000000-0000-0000-0000-000000000003"),
                 RunCuerpo = 33333333,
                 RunDigito = '3',
                 Nombres = "Margaret",
@@ -65,7 +65,7 @@ namespace Personas.Data
             },
             new Persona()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("00000000-0000-0000-0000-000000000004"),
                 RunCuerpo = 44444444,
                 RunDigito = '4',
                 Nombres = "Joan",
