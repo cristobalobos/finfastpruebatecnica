@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Finfast.Data
 {
@@ -15,10 +16,7 @@ namespace Finfast.Data
             throw new NotImplementedException();
         }
 
-        public List<Persona> GetAllPersonas()
-        {
-            throw new NotImplementedException();
-        }
+        public List<Persona> GetAllPersonas() => Data.Personas.ToList();
 
         public Persona GetPersonaById(Guid id)
         {
