@@ -22,6 +22,16 @@ namespace Personas.Controllers
             return Ok(allPersonas);
         }
 
-        // Más acciones vendrán aquí: GetById, Add, Update, Delete
+        [HttpPost("AddPersona")]
+        public IActionResult AddPersona([FromBody] Persona persona)
+        {
+            if (persona == null)
+            {
+                return BadRequest("The person cannot be null.");
+            }
+
+            _service.AddPersona(persona);
+            return Ok("The person was added successfully.");
+        }
     }
 }

@@ -6,17 +6,19 @@ namespace Personas.Data
 {
     public class PersonaService : IPersonaService
     {
+
+        public List<Persona> GetAllPersonas() => PersonaMock.Personas.ToList();
         public void AddPersona(Persona persona)
         {
-            throw new NotImplementedException();
+            persona.Id = Guid.NewGuid(); // Asegura que el ID sea único
+            PersonaMock.Personas.Add(persona); // Agrega al mock en memoria
         }
-
         public void DeletePersona(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Persona> GetAllPersonas() => PersonaMock.Personas.ToList();
+
 
         public Persona GetPersonaById(Guid id)
         {
