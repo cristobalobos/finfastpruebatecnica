@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Finfast.Data
+namespace Personas.Data
 {
-    public interface IFinfastService
+    public interface IPersonaService
     {
         List<Persona> GetAllPersonas();
         Persona GetPersonaById(Guid id);

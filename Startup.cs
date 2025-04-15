@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Finfast.Data;
+using Personas.Data;
 
 namespace finfastpruebatecnica
 {
@@ -31,7 +31,7 @@ namespace finfastpruebatecnica
             });
 
             // Inyección de dependencias para el servicio 
-            services.AddTransient<IFinfastService, FinfastService>();
+            services.AddTransient<IPersonaService, PersonaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using Finfast.Data;
+using Personas.Data;
 using System;
 
-namespace Finfast.Controllers
+namespace Personas.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class PersonasController : ControllerBase
     {
-        private readonly IFinfastService _service;
+        private readonly IPersonaService _service;
 
-        public PersonasController(IFinfastService service)
+        public PersonasController(IPersonaService service)
         {
             _service = service;
         }

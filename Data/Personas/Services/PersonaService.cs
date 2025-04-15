@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Finfast.Data
+namespace Personas.Data
 {
-    public class FinfastService : IFinfastService
+    public class PersonaService : IPersonaService
     {
         public void AddPersona(Persona persona)
         {
@@ -16,7 +16,7 @@ namespace Finfast.Data
             throw new NotImplementedException();
         }
 
-        public List<Persona> GetAllPersonas() => Data.Personas.ToList();
+        public List<Persona> GetAllPersonas() => PersonaMock.Personas.ToList();
 
         public Persona GetPersonaById(Guid id)
         {

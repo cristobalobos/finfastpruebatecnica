@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Finfast.Data
+namespace Personas.Data
 {
     public class Persona
     {
