@@ -97,10 +97,25 @@ return _context.Persona.ToList();
 
 ## 📋 Consideraciones de Diseño
 
-- Las entidades mantienen sus nombres en español para coincidir directamente con la estructura de la base de datos SQL entregada.
-- Se dejó una carpeta exclusiva llamada `Personas` que agrupa modelos, servicios e interfaces relacionados. Esta estructura facilita la **escalabilidad**, permitiendo que en el futuro se agreguen más entidades (como `Región`, `Sexo`, `Ciudad`, etc.) de forma ordenada y mantenible.
-- El uso de **interfaces** e **inyección de dependencias** en `Startup.cs` permite desacoplar el backend, facilitando el testeo y cambios en la fuente de datos.
-- En la consola del backend se muestran logs simples como confirmación de inserción, actualización y eliminación, para seguimiento del flujo de operaciones.
+- 🗂 **Estructura modular y escalable**: Se estructuró el backend separando responsabilidades por carpeta (`Entities`, `Services`, `Mock`) dentro del namespace `Personas`, lo que facilita escalar el proyecto a nuevas entidades manteniendo una organización limpia y mantenible.
+
+- 🧩 **Nombres en español en entidades**: Las clases y propiedades del modelo (`Persona`, `Sexo`, `Región`, etc.) fueron mantenidas en español para coincidir directamente con los nombres de las tablas de la base de datos entregada, facilitando la trazabilidad y comprensión del modelo de dominio.
+
+- 🧪 **Compatibilidad con mocks**: Se incluyeron versiones comentadas en los servicios para trabajar con datos simulados (`Mock`) durante la etapa inicial, permitiendo desarrollar el frontend sin necesidad de depender del estado de la base de datos.
+
+- 🧩 **Desacoplamiento mediante interfaces**: Se implementaron interfaces (`IPersonaService`, etc.) para abstraer la lógica de negocio, lo que facilita la inyección de dependencias en `Startup.cs`, mejora la testabilidad y permite cambiar fácilmente la fuente de datos si fuera necesario.
+
+- 📝 **Mensajes de consola como trazabilidad ligera**: Cada operación en el backend emite un mensaje en la consola que indica si la acción fue exitosa o fallida (`Persona added`, `Persona deleted`, etc.). Esto permitió depurar de forma ágil durante el desarrollo.
+
+- ♻️ **Validaciones a nivel de modelo**: Se utilizó `System.ComponentModel.DataAnnotations` en las entidades para validar campos obligatorios como `RUT`, `email`, `fecha de nacimiento`, etc. Esto asegura que el backend mantenga integridad sin depender exclusivamente del frontend.
+
+- 📡 **Carga dinámica de datos relacionales**: Los campos `Región`, `Ciudad` y `Comuna` en el formulario de personas fueron implementados con dependencias dinámicas, es decir, el contenido de cada combo se actualiza en tiempo real según la selección del anterior. Esto mejora la usabilidad y evita errores de selección inválida.
+
+- 🔄 **Redirección automática tras operaciones**: Al agregar o actualizar una persona, el usuario es redirigido automáticamente al listado general (`/personas`) como confirmación implícita de éxito y para asegurar consistencia visual inmediata.
+
+- 🧠 **Reutilización de formularios**: Se refactorizó la vista de formulario (`PersonaForm.jsx`) para ser utilizada tanto en el flujo de creación como en el de edición, reduciendo duplicación de código, errores y facilitando el mantenimiento futuro.
+
+- 🎨 **Estilo visual consistente**: Se personalizó la UI utilizando Bootstrap 4 y una paleta de colores inspirada en el sitio oficial de FinFast, mejorando la presentación sin comprometer la funcionalidad.
 
 ---
 
