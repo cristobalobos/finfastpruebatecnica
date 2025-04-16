@@ -50,6 +50,11 @@ export class PersonasList extends Component {
         }
     };
 
+
+    editPersona = (id) => {
+        this.props.history.push(`/edit/${id}`);
+    };
+
     loadPersonas = async () => {
         const response = await fetch("/api/Personas/GetAll");
         const data = await response.json();
@@ -78,8 +83,8 @@ export class PersonasList extends Component {
                             <div className="form-group">
                                 <td>
 
-                                    <button onClick={() => this.onTripUpdate(personas.id)} className="btn btn-success btn-sm">
-                                        Update
+                                    <button className="btn btn-primary btn-sm" onClick={() => this.editPersona(p.id)}>
+                                        Editar
                                     </button>
 
                                 </td>
