@@ -48,7 +48,20 @@ export class PersonasList extends Component {
                             <td>{p.apellidoPaterno}</td>
                             <td>{p.apellidoMaterno}</td>
                             <td>{p.email}</td>
-                            <td>-</td>
+                            <div className="form-group">
+                                <td>
+
+                                    <button onClick={() => this.onTripUpdate(personas.id)} className="btn btn-success">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td>
+                                    <button onClick={() => this.onTripDelete(personas.id)} className="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </td>
+                            </div>
                         </tr>
                     ))}
                 </tbody>
