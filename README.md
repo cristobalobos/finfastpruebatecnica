@@ -28,10 +28,11 @@ Este proyecto implementa un mantenedor de personas utilizando tecnologías como 
 FinfastPruebaTecnica/
 │
 ├── Controllers/           → API Controllers (.NET)
-│   └── PersonasController.cs
+│   ├── PersonasController.cs
+│   └── UbicacionController.cs
 │
 ├── Data/
-│   ├── Entities/          → Modelos (Personas, Sexo, Ciudad, etc.)
+│   ├── Entities/          → Modelos (Persona, Sexo, Región, Ciudad, Comuna)
 │   ├── Mock/              → Datos simulados para pruebas locales
 │   ├── Services/          → Interfaces y lógica de servicios
 │   └── PersonasDbContext.cs
@@ -39,6 +40,9 @@ FinfastPruebaTecnica/
 ├── ClientApp/             → Frontend en React
 │   ├── components/
 │   └── pages/
+│       ├── CreatePersona.jsx
+│       ├── UpdatePersona.jsx
+│       └── PersonasList.jsx
 │
 ├── appsettings.json       → Configuración del string de conexión
 ├── Startup.cs             → Configuración de servicios e inyección de dependencias
@@ -48,8 +52,6 @@ FinfastPruebaTecnica/
 ---
 
 ## 📦 Paquetes Instalados (EF Core 3.1)
-
-Se utilizaron los siguientes paquetes compatibles con .NET Core 3.1:
 
 - `Microsoft.EntityFrameworkCore`
 - `Microsoft.EntityFrameworkCore.SqlServer`
@@ -63,47 +65,32 @@ Se utilizaron los siguientes paquetes compatibles con .NET Core 3.1:
 
 ## 🚀 Funcionalidades Implementadas
 
-- ✅ Obtener todas las personas (`GET /api/Personas/GetPersonas`)
-- ✅ Obtener persona por ID (`GET /api/Personas/GetPersonaById/{id}`)
-- ✅ Agregar persona (`POST /api/Personas/AddPersona`)
-- ✅ Editar persona (`PUT /api/Personas/UpdatePersona/{id}`)
-- ✅ Eliminar persona (`DELETE /api/Personas/DeletePersona/{id}`)
+### Personas (`/api/Personas`)
 
-Todos los métodos funcionan actualmente con conexión a **base de datos real** mediante **Entity Framework Core**.
+- ✅ Obtener todas las personas (`GET /GetPersonas`)
+- ✅ Obtener persona por ID (`GET /GetPersonaById/{id}`)
+- ✅ Agregar persona (`POST /AddPersona`)
+- ✅ Editar persona (`PUT /UpdatePersona/{id}`)
+- ✅ Eliminar persona (`DELETE /DeletePersona/{id}`)
+
+### Ubicación (`/api/Ubicacion`)
+
+- ✅ Listar regiones (`GET /GetAllRegiones`)
+- ✅ Listar ciudades por región (`GET /GetCiudadesByRegion/{regionCodigo}`)
+- ✅ Listar comunas por región y ciudad (`GET /GetComunasByRegionAndCiudad/{regionCodigo}/{ciudadCodigo}`)
 
 ---
 
 ## 🧪 Modo de prueba con mocks
 
-Cada método del servicio mantiene comentada una alternativa con mocks para pruebas locales, como por ejemplo:
+Cada método del servicio tiene una alternativa comentada para pruebas con datos simulados (mock):
 
 ```csharp
 // ✅ Using Entity Framework (real database)
 return _context.Persona.ToList();
 
-// 🧪 Using mock data (for testing purposes)
+// 🧪 Using mock data
 // return PersonaMock.Personas.ToList();
-```
-
-Esto permite cambiar fácilmente entre desarrollo con datos reales y pruebas locales sin necesidad de conexión a SQL Server.
-
----
-
-## 🛠️ Pasos para ejecutar
-
-### Backend
-
-```bash
-dotnet restore
-dotnet run
-```
-
-### Frontend
-
-```bash
-cd ClientApp
-npm install
-npm start
 ```
 
 ---
@@ -117,43 +104,14 @@ npm start
 
 ---
 
-## 🧪 Probar con Postman
+## 🛠️ Pasos para ejecutar
 
-Base URL:
+### Backend
 
+```bash
+dotnet restore
+dotnet run
 ```
-https://localhost:5001/api/Personas
-```
-
-Ejemplo de insert:
-
-```json
-{
-  "runCuerpo": 12345678,
-  "runDigito": "9",
-  "nombres": "Ada",
-  "apellidoPaterno": "Lovelace",
-  "apellidoMaterno": "",
-  "email": "ada@correo.cl",
-  "sexoCodigo": 2,
-  "fechaNacimiento": "1815-12-10",
-  "regionCodigo": 1,
-  "ciudadCodigo": 1,
-  "comunaCodigo": 1,
-  "direccion": "Calle Imaginaria 123",
-  "telefono": 123456789,
-  "observaciones": "Primera programadora"
-}
-```
-
----
-
-## 🔄 Próximos pasos
-
-- Finalizar integración del frontend con todos los endpoints activos.
-- Implementar validaciones de datos (e.g., RUT, email, fechas).
-- Mostrar feedback visual en frontend ante errores o confirmaciones.
-- Documentar endpoints con Swagger.
 
 ---
 
