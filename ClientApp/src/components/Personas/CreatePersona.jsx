@@ -29,10 +29,6 @@ export class CreatePersona extends Component {
     componentDidMount() {
         this.fetchRegiones();
         // Simulación de fetchs reales
-        this.setState({
-            ciudades: [{ codigo: 1, nombre: "Ciudad 1" }],
-            comunas: [{ codigo: 1, nombre: "Comuna 1" }]
-        });
     }
 
     handleChange = (e) => {
@@ -63,6 +59,19 @@ export class CreatePersona extends Component {
         }
     };
 
+    fetchComunas = async (regionCodigo, ciudadCodigo) => {
+        try {
+            const response = await fetch(`/api/Ubicacion/GetComunasByRegionAndCiudad/${regionCodigo}/${ciudadCodigo}`);
+            const data = await response.json();
+            console.log("✅ Comunas recibidas:", data);
+            this.setState({ comunas: data, comunasLoading: false });
+        } catch (error) {
+            console.error("❌ Error al cargar comunas:", error);
+            this.setState({ comunasLoading: false });
+        }
+    };
+
+
     handleRegionChange = (e) => {
         const regionCodigo = e.target.value;
 
@@ -71,6 +80,16 @@ export class CreatePersona extends Component {
         });
 
         console.log("🌍 Región seleccionada:", regionCodigo);
+    };
+
+    handleCiudadChange = (e) => {
+        const ciudadCodigo = e.target.value;
+        this.setState({ ciudadCodigo, comunaCodigo: "", comunas: [], comunasLoading: true }, () => {
+            const { regionCodigo } = this.state;
+            if (regionCodigo && ciudadCodigo) {
+                this.fetchComunas(regionCodigo, ciudadCodigo);
+            }
+        });
     };
 
 
@@ -88,8 +107,7 @@ export class CreatePersona extends Component {
             fechaNacimiento: this.state.fechaNacimiento,
             regionCodigo: parseInt(this.state.regionCodigo),
             ciudadCodigo: parseInt(this.state.ciudadCodigo),
-            /*comunaCodigo: parseInt(this.state.comunaCodigo),*/
-            comunaCodigo: 1,
+            comunaCodigo: parseInt(this.state.comunaCodigo),
             direccion: this.state.direccion,
             telefono: parseInt(this.state.telefono),
             observaciones: this.state.observaciones
@@ -197,13 +215,14 @@ export class CreatePersona extends Component {
                             </select>
                         </div>
 
+                        {/* Comuna */}
                         <div className="form-group col-md-4">
                             <label>Ciudad:</label>
                             <select
                                 name="ciudadCodigo"
                                 className="form-control"
                                 value={this.state.ciudadCodigo}
-                                onChange={this.handleChange}
+                                onChange={this.handleCiudadChange}
                                 disabled={!this.state.regionCodigo || this.state.ciudades.length === 0}
                             >
                                 <option value="">Seleccione</option>
@@ -213,13 +232,26 @@ export class CreatePersona extends Component {
                             </select>
                         </div>
 
+                        {/* Comuna */}
                         <div className="form-group col-md-4">
                             <label>Comuna:</label>
-                            <select name="comunaCodigo" className="form-control" onChange={this.handleChange}>
-                                <option value="">Seleccione</option>
-                                {this.state.comunas.map(c => (
-                                    <option key={c.codigo} value={c.codigo}>{c.nombre}</option>
-                                ))}
+                            <select
+                                name="comunaCodigo"
+                                className="form-control"
+                                value={this.state.comunaCodigo}
+                                onChange={this.handleChange}
+                                disabled={this.state.comunasLoading}
+                            >
+                                {this.state.comunasLoading ? (
+                                    <option>Cargando comunas...</option>
+                                ) : (
+                                    <>
+                                        <option value="">Seleccione</option>
+                                        {this.state.comunas.map(c => (
+                                            <option key={c.codigo} value={c.codigo}>{c.nombre}</option>
+                                        ))}
+                                    </>
+                                )}
                             </select>
                         </div>
                     </div>

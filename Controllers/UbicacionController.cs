@@ -55,24 +55,25 @@ namespace Personas.Controllers
             return Ok(ciudades);
         }
 
-        // ✅ /api/Ubicacion/GetComunasByCiudad/{ciudadCodigo}
-        [HttpGet("GetComunasByCiudad/{ciudadCodigo}")]
-        public ActionResult<IEnumerable<Comuna>> GetComunasByCiudad(short ciudadCodigo)
+        // ✅ /api/Ubicacion/GetComunasByRegionAndCiudad/{regionCodigo}/{ciudadCodigo}
+        [HttpGet("GetComunasByRegionAndCiudad/{regionCodigo}/{ciudadCodigo}")]
+        public ActionResult<IEnumerable<Comuna>> GetComunasByRegionAndCiudad(short regionCodigo, short ciudadCodigo)
         {
-            Console.WriteLine($"📍 GET /api/Ubicacion/GetComunasByCiudad/{ciudadCodigo} - Request received");
+            Console.WriteLine($"📍 GET /api/Ubicacion/GetComunasByRegionAndCiudad/{regionCodigo}/{ciudadCodigo} - Request received");
 
             var comunas = _context.Comuna
-                                  .Where(c => c.CiudadCodigo == ciudadCodigo)
+                                  .Where(c => c.RegionCodigo == regionCodigo && c.CiudadCodigo == ciudadCodigo)
                                   .ToList();
 
             if (comunas == null || !comunas.Any())
             {
-                Console.WriteLine($"⚠️ No comunas found for ciudad {ciudadCodigo}");
-                return NotFound($"No se encontraron comunas para la ciudad {ciudadCodigo}.");
+                Console.WriteLine($"⚠️ No comunas found for region {regionCodigo} and ciudad {ciudadCodigo}");
+                return NotFound($"No se encontraron comunas para la región {regionCodigo} y ciudad {ciudadCodigo}.");
             }
 
-            Console.WriteLine($"✅ {comunas.Count} comunas found for ciudad {ciudadCodigo}");
+            Console.WriteLine($"✅ {comunas.Count} comunas found for region {regionCodigo} and ciudad {ciudadCodigo}");
             return Ok(comunas);
         }
+
     }
 }
