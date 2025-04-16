@@ -58,32 +58,53 @@ namespace Personas.Data
 
         public Persona GetPersonaById(Guid id)
         {
-            return PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+            // ✅ From real database
+            return _context.Persona.FirstOrDefault(p => p.Id == id);
 
+            // 🧪 Mock fallback
+            // return PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
         }
 
-        public void UpdatePersona(Guid id, Persona updatedPersona)
+        public void UpdatePersona(Guid id, Persona persona)
         {
-            var existingPersona = PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+            Console.WriteLine($"📝 Attempting to update persona with ID: {id}");
 
-            if (existingPersona == null)
-                return; // O puedes lanzar una excepción si prefieres validar más estrictamente
+            var existing = _context.Persona.FirstOrDefault(p => p.Id == id);
 
-            // Actualizamos cada campo manualmente
-            existingPersona.RunCuerpo = updatedPersona.RunCuerpo;
-            existingPersona.RunDigito = updatedPersona.RunDigito;
-            existingPersona.Nombres = updatedPersona.Nombres;
-            existingPersona.ApellidoPaterno = updatedPersona.ApellidoPaterno;
-            existingPersona.ApellidoMaterno = updatedPersona.ApellidoMaterno;
-            existingPersona.Email = updatedPersona.Email;
-            existingPersona.SexoCodigo = updatedPersona.SexoCodigo;
-            existingPersona.FechaNacimiento = updatedPersona.FechaNacimiento;
-            existingPersona.RegionCodigo = updatedPersona.RegionCodigo;
-            existingPersona.CiudadCodigo = updatedPersona.CiudadCodigo;
-            existingPersona.ComunaCodigo = updatedPersona.ComunaCodigo;
-            existingPersona.Direccion = updatedPersona.Direccion;
-            existingPersona.Telefono = updatedPersona.Telefono;
-            existingPersona.Observaciones = updatedPersona.Observaciones;
+            if (existing != null)
+            {
+                // ✅ Update fields
+                existing.RunCuerpo = persona.RunCuerpo;
+                existing.RunDigito = persona.RunDigito;
+                existing.Nombres = persona.Nombres;
+                existing.ApellidoPaterno = persona.ApellidoPaterno;
+                existing.ApellidoMaterno = persona.ApellidoMaterno;
+                existing.Email = persona.Email;
+                existing.SexoCodigo = persona.SexoCodigo;
+                existing.FechaNacimiento = persona.FechaNacimiento;
+                existing.RegionCodigo = persona.RegionCodigo;
+                existing.CiudadCodigo = persona.CiudadCodigo;
+                existing.ComunaCodigo = persona.ComunaCodigo;
+                existing.Direccion = persona.Direccion;
+                existing.Telefono = persona.Telefono;
+                existing.Observaciones = persona.Observaciones;
+
+                _context.SaveChanges();
+                Console.WriteLine($"✅ Persona with ID {id} updated successfully in the database");
+            }
+            else
+            {
+                Console.WriteLine($"⚠️ Persona with ID {id} not found for update");
+            }
+
+            // 🧪 Using mock data (for testing purposes)
+            // var existing = PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+            // if (existing != null)
+            // {
+            //     var index = PersonaMock.Personas.IndexOf(existing);
+            //     PersonaMock.Personas[index] = persona;
+            //     Console.WriteLine($"✅ Persona with ID {id} updated in mock data");
+            // }
         }
     }
 }
