@@ -33,9 +33,8 @@ FinfastPruebaTecnica/
 ├── Data/
 │   ├── Entities/          → Modelos (Personas, Sexo, Ciudad, etc.)
 │   ├── Mock/              → Datos simulados para pruebas locales
-│   └── Services/          → Interfaces y lógica de servicios
-│       ├── IPersonaService.cs
-│       └── PersonaService.cs
+│   ├── Services/          → Interfaces y lógica de servicios
+│   └── PersonasDbContext.cs
 │
 ├── ClientApp/             → Frontend en React
 │   ├── components/
@@ -64,12 +63,29 @@ Se utilizaron los siguientes paquetes compatibles con .NET Core 3.1:
 
 ## 🚀 Funcionalidades Implementadas
 
-- ✅ Obtener todas las personas (`GET /api/Personas/GetAll`)
+- ✅ Obtener todas las personas (`GET /api/Personas/GetPersonas`)
+- ✅ Obtener persona por ID (`GET /api/Personas/GetPersonaById/{id}`)
 - ✅ Agregar persona (`POST /api/Personas/AddPersona`)
 - ✅ Editar persona (`PUT /api/Personas/UpdatePersona/{id}`)
 - ✅ Eliminar persona (`DELETE /api/Personas/DeletePersona/{id}`)
 
-Actualmente, todos los métodos están funcionando con **datos mockeados (mocks)** para facilitar el desarrollo del frontend antes de integrar la base de datos real.
+Todos los métodos funcionan actualmente con conexión a **base de datos real** mediante **Entity Framework Core**.
+
+---
+
+## 🧪 Modo de prueba con mocks
+
+Cada método del servicio mantiene comentada una alternativa con mocks para pruebas locales, como por ejemplo:
+
+```csharp
+// ✅ Using Entity Framework (real database)
+return _context.Persona.ToList();
+
+// 🧪 Using mock data (for testing purposes)
+// return PersonaMock.Personas.ToList();
+```
+
+Esto permite cambiar fácilmente entre desarrollo con datos reales y pruebas locales sin necesidad de conexión a SQL Server.
 
 ---
 
@@ -97,15 +113,47 @@ npm start
 - Las entidades mantienen sus nombres en español para coincidir directamente con la estructura de la base de datos SQL entregada.
 - Se dejó una carpeta exclusiva llamada `Personas` que agrupa modelos, servicios e interfaces relacionados. Esta estructura facilita la **escalabilidad**, permitiendo que en el futuro se agreguen más entidades (como `Región`, `Sexo`, `Ciudad`, etc.) de forma ordenada y mantenible.
 - El uso de **interfaces** e **inyección de dependencias** en `Startup.cs` permite desacoplar el backend, facilitando el testeo y cambios en la fuente de datos.
+- En la consola del backend se muestran logs simples como confirmación de inserción, actualización y eliminación, para seguimiento del flujo de operaciones.
+
+---
+
+## 🧪 Probar con Postman
+
+Base URL:
+
+```
+https://localhost:5001/api/Personas
+```
+
+Ejemplo de insert:
+
+```json
+{
+  "runCuerpo": 12345678,
+  "runDigito": "9",
+  "nombres": "Ada",
+  "apellidoPaterno": "Lovelace",
+  "apellidoMaterno": "",
+  "email": "ada@correo.cl",
+  "sexoCodigo": 2,
+  "fechaNacimiento": "1815-12-10",
+  "regionCodigo": 1,
+  "ciudadCodigo": 1,
+  "comunaCodigo": 1,
+  "direccion": "Calle Imaginaria 123",
+  "telefono": 123456789,
+  "observaciones": "Primera programadora"
+}
+```
 
 ---
 
 ## 🔄 Próximos pasos
 
-- Reemplazar los datos mockeados por acceso real a la base de datos usando EF Core.
-- Implementar validaciones de datos (e.g., RUT, fecha de nacimiento, email).
-- Agregar feedback visual en el frontend ante errores y confirmaciones de operaciones.
-- Mejorar estilos y experiencia del usuario.
+- Finalizar integración del frontend con todos los endpoints activos.
+- Implementar validaciones de datos (e.g., RUT, email, fechas).
+- Mostrar feedback visual en frontend ante errores o confirmaciones.
+- Documentar endpoints con Swagger.
 
 ---
 
