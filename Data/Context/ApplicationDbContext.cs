@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace Personas.Data
@@ -17,6 +19,19 @@ namespace Personas.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            // 👇 Mapea todos los DateTime y DateTime? como datetime (en lugar de datetime2)
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                var properties = entity.ClrType.GetProperties()
+                    .Where(p => p.PropertyType == typeof(DateTime) || p.PropertyType == typeof(DateTime?));
+
+                foreach (var property in properties)
+                {
+                    modelBuilder.Entity(entity.Name).Property(property.Name).HasColumnType("datetime");
+                }
+            }
+
             // ✅ Set primary keys for each entity
             modelBuilder.Entity<Persona>().HasKey(p => p.Id);
             modelBuilder.Entity<Sexo>().HasKey(s => s.Codigo);

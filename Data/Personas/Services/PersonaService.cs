@@ -25,8 +25,22 @@ namespace Personas.Data
 
         public void AddPersona(Persona persona)
         {
-            persona.Id = Guid.NewGuid(); // Asegura que el ID sea único
-            PersonaMock.Personas.Add(persona); // Agrega al mock en memoria
+            if (persona == null)
+            {
+                Console.WriteLine("❌ Attempted to add a null persona");
+                return;
+            }
+
+            persona.Id = Guid.NewGuid();
+
+            // ✅ Using Entity Framework (real database)
+            _context.Persona.Add(persona);
+            _context.SaveChanges();
+            Console.WriteLine($"✅ Persona with ID {persona.Id} added to the database");
+
+            // 🧪 Using mock data (for testing purposes)
+            // PersonaMock.Personas.Add(persona);
+            // Console.WriteLine($"🧪 Persona with ID {persona.Id} added to mock data");
         }
         public void DeletePersona(Guid id)
         {
