@@ -21,14 +21,15 @@ export class CreatePersona extends Component {
             // listas para dropdowns
             regiones: [],
             ciudades: [],
-            comunas: []
+            comunas: [],
+            regionesLoading: true,
         };
     }
 
     componentDidMount() {
+        this.fetchRegiones();
         // Simulación de fetchs reales
         this.setState({
-            regiones: [{ codigo: 1, nombre: "Región 1" }],
             ciudades: [{ codigo: 1, nombre: "Ciudad 1" }],
             comunas: [{ codigo: 1, nombre: "Comuna 1" }]
         });
@@ -37,6 +38,29 @@ export class CreatePersona extends Component {
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
+
+    fetchRegiones = async () => {
+        fetch("/api/Ubicacion/GetAllRegiones")
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ regiones: data, regionesLoading: false });
+            })
+            .catch(error => {
+                console.error("❌ Error al cargar regiones:", error);
+                this.setState({ regionesLoading: false });
+            });
+    };
+
+    handleRegionChange = (e) => {
+        const regionCodigo = e.target.value;
+
+        this.setState({
+            regionCodigo
+        });
+
+        console.log("🌍 Región seleccionada:", regionCodigo);
+    };
+
 
     handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,10 +74,9 @@ export class CreatePersona extends Component {
             email: this.state.email,
             sexoCodigo: parseInt(this.state.sexoCodigo),
             fechaNacimiento: this.state.fechaNacimiento,
-            /*regionCodigo: parseInt(this.state.regionCodigo),
-            ciudadCodigo: parseInt(this.state.ciudadCodigo),
+            regionCodigo: parseInt(this.state.regionCodigo),
+            /*ciudadCodigo: parseInt(this.state.ciudadCodigo),
             comunaCodigo: parseInt(this.state.comunaCodigo),*/
-            regionCodigo: 1,
             ciudadCodigo: 1,
             comunaCodigo: 1,
             direccion: this.state.direccion,
@@ -137,15 +160,32 @@ export class CreatePersona extends Component {
 
                     {/* Región / Ciudad / Comuna */}
                     <div className="form-row">
-                        <div className="form-group col-md-4">
+
+                        {/* Región */}
+                        <div className="form-group">
                             <label>Región:</label>
-                            <select name="regionCodigo" className="form-control" onChange={this.handleChange}>
-                                <option value="">Seleccione</option>
-                                {this.state.regiones.map(r => (
-                                    <option key={r.codigo} value={r.codigo}>{r.nombre}</option>
-                                ))}
+                            <select
+                                name="regionCodigo"
+                                className="form-control"
+                                value={this.state.regionCodigo}
+                                onChange={this.handleRegionChange}
+                                disabled={this.state.regionesLoading} // opcional: desactiva el combo mientras carga
+                            >
+                                {this.state.regionesLoading ? (
+                                    <option>Cargando regiones...</option>
+                                ) : (
+                                    <>
+                                        <option value="">Seleccione</option>
+                                        {this.state.regiones.map(r => (
+                                            <option key={r.codigo} value={r.codigo}>
+                                                {r.nombre}
+                                            </option>
+                                        ))}
+                                    </>
+                                )}
                             </select>
                         </div>
+
                         <div className="form-group col-md-4">
                             <label>Ciudad:</label>
                             <select name="ciudadCodigo" className="form-control" onChange={this.handleChange}>

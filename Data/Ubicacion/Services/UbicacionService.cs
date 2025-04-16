@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System;
 using System.Linq;
+
 
 namespace Personas.Data.Services.Ubicacion
 {
@@ -14,9 +16,14 @@ namespace Personas.Data.Services.Ubicacion
 
         public IEnumerable<Region> GetAllRegiones()
         {
-            return _context.Region.ToList();
-        }
+            Console.WriteLine("📡 Fetching all regiones from the database...");
 
+            var regiones = _context.Region.ToList();
+
+            Console.WriteLine($"✅ {regiones.Count} regiones loaded from the database");
+
+            return regiones;
+        }
         public IEnumerable<Ciudad> GetCiudadesByRegion(short regionCodigo)
         {
             return _context.Ciudad.Where(c => c.RegionCodigo == regionCodigo).ToList();

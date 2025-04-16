@@ -14,7 +14,7 @@ namespace Personas.Data
         [Required(ErrorMessage = "El dígito verificador es obligatorio")]
         public char RunDigito { get; set; }
 
-        [Required(ErrorMessage = "El nombre es obligatorio")]
+        // [Required(ErrorMessage = "El nombre es obligatorio")]
         public string Nombres { get; set; }
 
         [Required(ErrorMessage = "El apellido paterno es obligatorio")]
@@ -22,24 +22,24 @@ namespace Personas.Data
 
         public string ApellidoMaterno { get; set; }
 
-        [Required(ErrorMessage = "El email es obligatorio")]
-        [EmailAddress(ErrorMessage = "El formato del email no es válido")]
+        // [Required(ErrorMessage = "El email es obligatorio")]
+        // [EmailAddress(ErrorMessage = "El formato del email no es válido")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "El sexo es obligatorio")]
-        public short SexoCodigo { get; set; }
+        // [Required(ErrorMessage = "El sexo es obligatorio")]
+        public short? SexoCodigo { get; set; }
 
-        [Required(ErrorMessage = "La fecha de nacimiento es obligatoria")]
-        [DataType(DataType.Date)]
+        // [Required(ErrorMessage = "La fecha de nacimiento es obligatoria")]
+        // [DataType(DataType.Date)]
         public DateTime? FechaNacimiento { get; set; }
 
-        [Required(ErrorMessage = "La región es obligatoria")]
+        // [Required(ErrorMessage = "La región es obligatoria")]
         public short? RegionCodigo { get; set; }
 
-        [Required(ErrorMessage = "La ciudad es obligatoria")]
+        // [Required(ErrorMessage = "La ciudad es obligatoria")]
         public short? CiudadCodigo { get; set; }
 
-        [Required(ErrorMessage = "La comuna es obligatoria")]
+        // [Required(ErrorMessage = "La comuna es obligatoria")]
         public short? ComunaCodigo { get; set; }
 
         public string Direccion { get; set; }
