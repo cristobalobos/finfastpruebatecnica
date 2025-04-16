@@ -29,6 +29,33 @@ export class PersonasList extends Component {
             });
     }
 
+    deletePersona = async (id) => {
+        const confirm = window.confirm("¿Estás seguro de que deseas eliminar esta persona?");
+        if (!confirm) return;
+
+        try {
+            const response = await fetch(`/api/Personas/DeletePersona/${id}`, {
+                method: "DELETE"
+            });
+
+            if (response.ok) {
+                alert("✔️ Persona eliminada exitosamente");
+                this.loadPersonas(); // Vuelve a cargar la lista
+            } else {
+                alert("❌ No se pudo eliminar la persona.");
+            }
+        } catch (error) {
+            console.error("🚨 Error al eliminar persona:", error);
+            alert("❌ Error de conexión.");
+        }
+    };
+
+    loadPersonas = async () => {
+        const response = await fetch("/api/Personas/GetAll");
+        const data = await response.json();
+        this.setState({ personas: data });
+    };
+
     renderPersonasTable(personas) {
         return (
             <table className="table table-striped">
@@ -51,14 +78,14 @@ export class PersonasList extends Component {
                             <div className="form-group">
                                 <td>
 
-                                    <button onClick={() => this.onTripUpdate(personas.id)} className="btn btn-success">
+                                    <button onClick={() => this.onTripUpdate(personas.id)} className="btn btn-success btn-sm">
                                         Update
                                     </button>
 
                                 </td>
                                 <td>
-                                    <button onClick={() => this.onTripDelete(personas.id)} className="btn btn-danger">
-                                        Delete
+                                    <button className="btn btn-danger btn-sm" onClick={() => this.deletePersona(p.id)}>
+                                        Eliminar
                                     </button>
                                 </td>
                             </div>
