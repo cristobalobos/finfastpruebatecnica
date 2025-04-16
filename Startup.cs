@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Personas.Data;
 using Microsoft.EntityFrameworkCore;
+using Personas.Data.Services.Ubicacion;
 
 namespace finfastpruebatecnica
 {
@@ -36,6 +37,8 @@ namespace finfastpruebatecnica
 
             // Inyección de dependencias para el servicio 
             services.AddTransient<IPersonaService, PersonaService>();
+            services.AddScoped<IUbicacionService, UbicacionService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

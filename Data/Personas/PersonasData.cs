@@ -35,38 +35,4 @@ namespace Personas.Data
 
         public ICollection<Persona> Personas { get; set; }
     }
-
-    public class Region
-    {
-        public short Codigo { get; set; }
-        public string Nombre { get; set; }
-        public string NombreOficial { get; set; }
-        public string CodigoLibroClaseElectronico { get; set; }
-
-        public ICollection<Ciudad> Ciudades { get; set; }
-        public ICollection<Comuna> Comunas { get; set; }
-    }
-
-    public class Ciudad
-    {
-        public short Codigo { get; set; }
-        public short RegionCodigo { get; set; }
-        public string Nombre { get; set; }
-
-        public Region Region { get; set; }
-        public ICollection<Comuna> Comunas { get; set; }
-    }
-
-    public class Comuna
-    {
-        public short Codigo { get; set; }
-        public short RegionCodigo { get; set; }
-        public short CiudadCodigo { get; set; }
-        public string Nombre { get; set; }
-        public string CodigoPostal { get; set; }
-        public string CodigoLibroClaseElectronico { get; set; }
-
-        public Region Region { get; set; }
-        public Ciudad Ciudad { get; set; }
-    }
 }
