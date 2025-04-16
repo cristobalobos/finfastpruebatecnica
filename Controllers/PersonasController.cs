@@ -15,10 +15,14 @@ namespace Personas.Controllers
             _service = service;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("GetAll")]
         public IActionResult GetPersonas()
         {
+            Console.WriteLine("📥 GET /api/Personas/GetAll - Request received");
+
             var allPersonas = _service.GetAllPersonas();
+
+            Console.WriteLine($"✅ Retrieved {allPersonas.Count} personas from the service");
             return Ok(allPersonas);
         }
 

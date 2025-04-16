@@ -5,9 +5,28 @@ export class PersonasList extends Component {
         super(props);
 
         this.state = {
-            trips: [],
-            loading: false
+            personas: [],
+            loading: false,
+
         }
+    }
+
+    componentDidMount() {
+        this.populatePersonasData();
+    }
+
+    async populatePersonasData() {
+        console.log("📡 Fetching personas from API...");
+        fetch("api/Personas/GetAll")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("✅ Personas loaded:", data);
+                this.setState({ personas: data, loading: false });
+            })
+            .catch((error) => {
+                console.error("❌ Error fetching personas:", error);
+                this.setState({ loading: false });
+            });
     }
 
     renderPersonasTable(personas) {
@@ -15,20 +34,20 @@ export class PersonasList extends Component {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Nombres</th>
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
-                        <th>RUT</th>
-                        <th>Accionesss</th>
+                        <th>Email</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {personas.map(p => (
+                    {personas.map((p) => (
                         <tr key={p.id}>
                             <td>{p.nombres}</td>
                             <td>{p.apellidoPaterno}</td>
                             <td>{p.apellidoMaterno}</td>
-                            <td>{`${p.runCuerpo}-${p.runDigito}`}</td>
+                            <td>{p.email}</td>
                             <td>-</td>
                         </tr>
                     ))}
@@ -40,19 +59,17 @@ export class PersonasList extends Component {
 
     render() {
 
-        let content = this.state.loading ? (
-            <p>
-                <p><em>Loading...</em></p>
-            </p>
-        ) : (
-            this.renderPersonasTable(this.state.trips)
-        )
+        const { loading, personas } = this.state;
 
         return (
             <div>
                 <h1>Personas</h1>
-                <p>Listado de todas las personas registradas</p>
-                {content}
+                <p>Listado de personas registradas.</p>
+                {loading ? (
+                    <p><em>Loading...</em></p>
+                ) : (
+                    this.renderPersonasTable(personas)
+                )}
             </div>
         );
     }
