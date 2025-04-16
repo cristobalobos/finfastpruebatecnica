@@ -69,6 +69,8 @@ export class CreatePersona extends Component {
 
         if (response.ok) {
             alert("Persona creada exitosamente");
+            this.props.history.push("/personas"); // 🔁 Redireccionar al listado
+
         } else {
             alert("Error al crear persona");
         }
