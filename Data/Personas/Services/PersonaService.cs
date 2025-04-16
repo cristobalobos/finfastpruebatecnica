@@ -44,17 +44,27 @@ namespace Personas.Data
         }
         public void DeletePersona(Guid id)
         {
-            var persona = PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+            // ✅ Real DB (Entity Framework)
+            var persona = _context.Persona.FirstOrDefault(p => p.Id == id);
+
             if (persona != null)
             {
-                PersonaMock.Personas.Remove(persona);
-                Console.WriteLine($"🗑 Persona with ID {id} deleted");
+                _context.Persona.Remove(persona);
+                _context.SaveChanges();
+                Console.WriteLine($"🗑️ Persona with ID {id} deleted from database");
             }
             else
             {
-                Console.WriteLine($"⚠️ Persona with ID {id} not found for deletion");
+                Console.WriteLine($"⚠️ Persona with ID {id} not found in database");
             }
+
+            // 🧪 Mock version (for testing only)
+            // var persona = PersonaMock.Personas.FirstOrDefault(p => p.Id == id);
+            //     PersonaMock.Personas.Remove(persona);
+            //     Console.WriteLine($"🗑️ Persona with ID {id} deleted from mock");
+            // }
         }
+
 
         public Persona GetPersonaById(Guid id)
         {
