@@ -1,14 +1,98 @@
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+/* === PALETA FINFAST === */
+:root {
+  --ff-blue: #0044a5;
+  --ff-light-blue: #eef4fb;
+  --ff-dark: #0b0b0b;
+  --ff-gray: #f4f4f4;
+  --ff-border: #e0e0e0;
+  --ff-red: #e63946;
+  --ff-text: #212529;
 }
 
-code {
-  color: #E01A76;
+/* === TIPOGRAFÍA Y FONDOS === */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff;
+  color: var(--ff-text);
 }
 
-.btn-primary {
+h1,
+h2,
+h3 {
+  color: var(--ff-blue);
+  font-weight: 600;
+}
+
+/* === TABLA ESTILO CORPORATIVO === */
+.table {
+  background-color: #ffffff;
+  border: 1px solid var(--ff-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: var(--ff-blue);
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  font-weight: 500;
+}
+
+.table thead th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--ff-light-blue);
+}
+
+.table tbody td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* 🎯 Efecto Hover Moderno */
+.table tbody tr:hover {
+  background-color: #d9e6f7;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* === BOTONES === */
+.btn-primary {
+  background-color: var(--ff-blue);
+  border-color: var(--ff-blue);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #003a8c;
+  border-color: #003a8c;
+}
+
+.btn-danger {
+  background-color: var(--ff-red);
+  border-color: var(--ff-red);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c42738;
+  border-color: #c42738;
+}
+
+/* === FORMULARIOS === */
+.form-control {
+  border-radius: 4px;
+  border: 1px solid var(--ff-border);
+}
+
+/* === CONTENEDOR === */
+.container {
+  padding-top: 2rem;
+}
+
+/* === UTILIDADES ADICIONALES === */
+.text-nowrap {
+  white-space: nowrap;
 }
