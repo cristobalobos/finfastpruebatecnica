@@ -63,44 +63,45 @@ export class PersonasList extends Component {
 
     renderPersonasTable(personas) {
         return (
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nombres</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th>Email</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {personas.map((p) => (
-                        <tr key={p.id}>
-                            <td>{p.nombres}</td>
-                            <td>{p.apellidoPaterno}</td>
-                            <td>{p.apellidoMaterno}</td>
-                            <td>{p.email}</td>
-                            <div className="form-group">
-                                <td>
-
-                                    <button className="btn btn-primary btn-sm" onClick={() => this.editPersona(p.id)}>
+            <div className="table-responsive">
+                <table className="table table-striped table-bordered">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Email</th>
+                            <th style={{ minWidth: '130px' }}>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {personas.map((p) => (
+                            <tr key={p.id}>
+                                <td>{p.nombres}</td>
+                                <td>{p.apellidoPaterno}</td>
+                                <td>{p.apellidoMaterno}</td>
+                                <td>{p.email}</td>
+                                <td className="text-nowrap">
+                                    <button
+                                        className="btn btn-sm btn-primary mr-2"
+                                        onClick={() => this.editPersona(p.id)}
+                                    >
                                         Editar
                                     </button>
-
-                                </td>
-                                <td>
-                                    <button className="btn btn-danger btn-sm" onClick={() => this.deletePersona(p.id)}>
+                                    <button
+                                        className="btn btn-sm btn-danger"
+                                        onClick={() => this.deletePersona(p.id)}
+                                    >
                                         Eliminar
                                     </button>
                                 </td>
-                            </div>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         );
     }
-
 
     render() {
 

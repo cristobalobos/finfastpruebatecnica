@@ -82,19 +82,29 @@ export class CreatePersona extends Component {
                     {/* RUN */}
                     <div className="form-group">
                         <label>R.U.N.:</label>
-                        <div className="d-flex">
-                            <input type="number" className="form-control" name="runCuerpo" placeholder="11111111" value={this.state.runCuerpo} onChange={this.handleChange} required />
-                            <input type="text" className="form-control w-25 ml-2" name="runDigito" placeholder="1" value={this.state.runDigito} onChange={this.handleChange} maxLength={1} required />
+                        <div className="form-row">
+                            <div className="col-md-9 mb-2">
+                                <input type="number" className="form-control" name="runCuerpo" placeholder="11111111" value={this.state.runCuerpo} onChange={this.handleChange} required />
+                            </div>
+                            <div className="col-md-3">
+                                <input type="text" className="form-control" name="runDigito" placeholder="1" value={this.state.runDigito} onChange={this.handleChange} maxLength={1} required />
+                            </div>
                         </div>
                     </div>
 
                     {/* Nombre */}
                     <div className="form-group">
                         <label>Nombre:</label>
-                        <div className="d-flex">
-                            <input type="text" className="form-control" name="nombres" placeholder="Nombres" value={this.state.nombres} onChange={this.handleChange} required />
-                            <input type="text" className="form-control ml-2" name="apellidoPaterno" placeholder="Apellido paterno" value={this.state.apellidoPaterno} onChange={this.handleChange} required />
-                            <input type="text" className="form-control ml-2" name="apellidoMaterno" placeholder="Apellido materno" value={this.state.apellidoMaterno} onChange={this.handleChange} />
+                        <div className="form-row">
+                            <div className="col-md-4 mb-2">
+                                <input type="text" className="form-control" name="nombres" placeholder="Nombres" value={this.state.nombres} onChange={this.handleChange} required />
+                            </div>
+                            <div className="col-md-4 mb-2">
+                                <input type="text" className="form-control" name="apellidoPaterno" placeholder="Apellido paterno" value={this.state.apellidoPaterno} onChange={this.handleChange} required />
+                            </div>
+                            <div className="col-md-4">
+                                <input type="text" className="form-control" name="apellidoMaterno" placeholder="Apellido materno" value={this.state.apellidoMaterno} onChange={this.handleChange} />
+                            </div>
                         </div>
                     </div>
 
@@ -106,14 +116,14 @@ export class CreatePersona extends Component {
 
                     {/* Sexo */}
                     <div className="form-group">
-                        <label>Sexo:</label><br />
-                        <div>
-                            <label className="mr-3">
-                                <input type="radio" name="sexoCodigo" value="2" checked={this.state.sexoCodigo === "2"} onChange={this.handleChange} /> Femenino
-                            </label>
-                            <label>
-                                <input type="radio" name="sexoCodigo" value="1" checked={this.state.sexoCodigo === "1"} onChange={this.handleChange} /> Masculino
-                            </label>
+                        <label>Sexo:</label>
+                        <div className="form-check form-check-inline ml-2">
+                            <input className="form-check-input" type="radio" name="sexoCodigo" value="2" checked={this.state.sexoCodigo === "2"} onChange={this.handleChange} />
+                            <label className="form-check-label">Femenino</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" name="sexoCodigo" value="1" checked={this.state.sexoCodigo === "1"} onChange={this.handleChange} />
+                            <label className="form-check-label">Masculino</label>
                         </div>
                     </div>
 
@@ -124,45 +134,46 @@ export class CreatePersona extends Component {
                     </div>
 
                     {/* Región / Ciudad / Comuna */}
-                    <div className="form-group">
-                        <label>Región:</label>
-                        <select name="regionCodigo" className="form-control" onChange={this.handleChange}>
-                            <option value="">Seleccione</option>
-                            {this.state.regiones.map(r => (
-                                <option key={r.codigo} value={r.codigo}>{r.nombre}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Ciudad:</label>
-                        <select name="ciudadCodigo" className="form-control" onChange={this.handleChange}>
-                            <option value="">Seleccione</option>
-                            {this.state.ciudades.map(c => (
-                                <option key={c.codigo} value={c.codigo}>{c.nombre}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Comuna:</label>
-                        <select name="comunaCodigo" className="form-control" onChange={this.handleChange}>
-                            <option value="">Seleccione</option>
-                            {this.state.comunas.map(c => (
-                                <option key={c.codigo} value={c.codigo}>{c.nombre}</option>
-                            ))}
-                        </select>
+                    <div className="form-row">
+                        <div className="form-group col-md-4">
+                            <label>Región:</label>
+                            <select name="regionCodigo" className="form-control" onChange={this.handleChange}>
+                                <option value="">Seleccione</option>
+                                {this.state.regiones.map(r => (
+                                    <option key={r.codigo} value={r.codigo}>{r.nombre}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group col-md-4">
+                            <label>Ciudad:</label>
+                            <select name="ciudadCodigo" className="form-control" onChange={this.handleChange}>
+                                <option value="">Seleccione</option>
+                                {this.state.ciudades.map(c => (
+                                    <option key={c.codigo} value={c.codigo}>{c.nombre}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group col-md-4">
+                            <label>Comuna:</label>
+                            <select name="comunaCodigo" className="form-control" onChange={this.handleChange}>
+                                <option value="">Seleccione</option>
+                                {this.state.comunas.map(c => (
+                                    <option key={c.codigo} value={c.codigo}>{c.nombre}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     {/* Dirección y Teléfono */}
-                    <div className="form-group">
-                        <label>Dirección:</label>
-                        <input type="text" className="form-control" name="direccion" placeholder="Dirección" value={this.state.direccion} onChange={this.handleChange} />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Teléfono:</label>
-                        <input type="tel" className="form-control" name="telefono" placeholder="+56999999999" value={this.state.telefono} onChange={this.handleChange} />
+                    <div className="form-row">
+                        <div className="form-group col-md-8">
+                            <label>Dirección:</label>
+                            <input type="text" className="form-control" name="direccion" placeholder="Dirección" value={this.state.direccion} onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group col-md-4">
+                            <label>Teléfono:</label>
+                            <input type="tel" className="form-control" name="telefono" placeholder="+56999999999" value={this.state.telefono} onChange={this.handleChange} />
+                        </div>
                     </div>
 
                     {/* Observaciones */}
@@ -172,10 +183,13 @@ export class CreatePersona extends Component {
                     </div>
 
                     {/* Botones */}
-                    <button type="button" className="btn btn-secondary mr-2" onClick={() => window.history.back()}>Volver</button>
-                    <button type="submit" className="btn btn-primary">Guardar</button>
+                    <div className="form-group d-flex justify-content-between">
+                        <button type="button" className="btn btn-secondary" onClick={() => window.history.back()}>Volver</button>
+                        <button type="submit" className="btn btn-primary">Guardar</button>
+                    </div>
                 </form>
             </div>
+
         );
     }
 }

@@ -72,30 +72,33 @@ export class UpdatePersona extends Component {
         if (loading) return <p>Loading...</p>;
 
         return (
-            <div>
-                <h2>Edit Persona</h2>
+            <div className="container mt-4">
+                <h2 className="mb-4">Editar Persona</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Nombres</label>
-                        <input type="text" name="nombres" className="form-control" value={persona.nombres} onChange={this.handleChange} />
+                    <div className="form-row">
+                        <div className="form-group col-12">
+                            <label>Nombres</label>
+                            <input type="text" name="nombres" className="form-control" value={persona.nombres} onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group col-12">
+                            <label>Apellido Paterno</label>
+                            <input type="text" name="apellidoPaterno" className="form-control" value={persona.apellidoPaterno} onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group col-12">
+                            <label>Apellido Materno</label>
+                            <input type="text" name="apellidoMaterno" className="form-control" value={persona.apellidoMaterno} onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group col-12">
+                            <label>Email</label>
+                            <input type="email" name="email" className="form-control" value={persona.email} onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group col-12">
+                            <label>Dirección</label>
+                            <input type="text" name="direccion" className="form-control" value={persona.direccion} onChange={this.handleChange} />
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Apellido Paterno</label>
-                        <input type="text" name="apellidoPaterno" className="form-control" value={persona.apellidoPaterno} onChange={this.handleChange} />
-                    </div>
-                    <div className="form-group">
-                        <label>Apellido Materno</label>
-                        <input type="text" name="apellidoMaterno" className="form-control" value={persona.apellidoMaterno} onChange={this.handleChange} />
-                    </div>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" className="form-control" value={persona.email} onChange={this.handleChange} />
-                    </div>
-                    <div className="form-group">
-                        <label>Dirección</label>
-                        <input type="text" name="direccion" className="form-control" value={persona.direccion} onChange={this.handleChange} />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Update</button>
+
+                    <button type="submit" className="btn btn-primary">Actualizar</button>
                 </form>
             </div>
         );
